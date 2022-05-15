@@ -1,7 +1,15 @@
 <?php
     include '../connectSQL.php';
-    $sql = "SELECT * FROM orders";
+
+    if (isset($_GET['id'])) {
+        $id = $_GET['id'];
+    }
+
+    $sql = "select * from orders where id=$id";
     $result = mysqli_query($conn, $sql);
+    $order_info = mysqli_fetch_assoc($result);
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,37 +32,54 @@
     <?php  include '../common/left.php'?>
         <div class="right">
             <h1>Danh sách đơn hàng</h1>
+            <div class="order-info">
+                <p class="name">Tên: <span> <?php echo $order_info["ship_name"] ?> </span></p>
+
+                <p class="address">Địa chỉ: <span> <?php echo $order_info["address"] ?> </span></p>
+
+                <p class="phone">Số điện thoại: <span> <?php echo $order_info["phone"] ?> </span></p>
+
+                <p class="fee">Phí ship: <span> <?php echo $order_info["shipping_fee"] ?> </span></p>
+
+                <p class="email">Email: <span> <?php echo $order_info["email"] ?> </span></p>
+
+                <p class="created_date">Ngày tạo: <span> <?php echo $order_info["created_date"] ?> </span></p>
+
+                <?php 
+                    if (!empty($order_info["shipped_date"])) {
+                        echo "<p class='shipped_date'>Đơn hàng đã giao vào: <span>" .  $order_info["created_date"]  . "</span></p>";
+                    } else {
+                        echo "<p class='shipped_date'>Đơn hàng đang trong quá trình giao </p>";
+                    }  
+                ?>
+
+                
+                
+            </div>
             <table class="table">
             <thead>
-                <th>user id</th>
-                <th>ship name</th>
-                <th>address</th>
-                <th>phone</th>
-                <th>shipping fee</th>
-                <th>email</th>
-                <th>created_date</th>
-                <th>shipped_date</th>
-                <th></th>
+                <th>name</th>
+                <th>quantity</th>
+                <th>price</th>
+                <th>total price</th>
             </thead>
         <?php
-            while ($row = $result->fetch_assoc()) {
-                echo    "<tr>" .
-                    "<td>" . $row["user_id"] . "</td>" . 
-                    "<td>" . $row["ship_name"] . "</td>" .
-                    "<td>" . $row["address"] . "</td>" .
-                    "<td>" . $row["phone"] . "</td>" .
-                    "<td>" . $row["shipping_fee"] . "</td>" .
-                    "<td>" . $row["email"] . "</td>" .
-                    "<td>" . $row["created_date"] . "</td>" .
-                    "<td>" . $row["shipped_date"] . "</td>" .
-                    "<td>"
-                        . "<a href='DetailOrder.php?id=" . $row["id"] . "'>Chi tiết</a>"
-                        . "<a href='DeleteOrder.php?id=" . $row["id"] . "'>Xoá</a>"
-                        . 
-                    "</td>"
-                    .
-                "</tr>";
-            }
+
+        if (isset($_GET["id"])) {
+        $orderId = $_GET["id"];
+
+        $sql = "SELECT p.name, p.price, o.quantity, o.id FROM order_products o JOIN products p on o.product_id=p.id	WHERE order_id=$orderId";
+        $result = mysqli_query($conn, $sql);
+        while ($row = $result->fetch_assoc()) {
+            echo    "<tr>" .
+                "<td>" . $row["name"] . "</td>" . 
+                "<td>" . $row["quantity"] . "</td>" .
+                "<td>" . $row["price"] . "</td>" .
+                "<td>" . $row["price"]*$row["quantity"] . "</td>" .
+            "</tr>";
+        }
+    }
+
         ?>
     </table>
         </div>
