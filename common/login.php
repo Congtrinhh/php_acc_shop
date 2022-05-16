@@ -1,3 +1,36 @@
+<?php
+    include 'connectSQL.php';
+
+    session_start();
+
+    $sql = null;
+    $user_name = null;
+    $password = null;
+
+    if (isset($_POST['submit'])) {
+        $user_name = $_POST['user-name'];
+        $password = $_POST['password'];
+
+        $sql = "SELECT * FROM USERS WHERE user_name='$user_name' AND PASSWORD='$password'";
+
+        $rs = mysqli_query($conn, $sql);
+
+        $row = mysqli_fetch_assoc($rs);
+
+        if (is_array($row)>0) {
+            $_SESSION["ID"] = $row["id"];
+            $_SESSION["user_name"] = $row["user_name"];
+            $_SESSION["first_name"] = $row["first_name"];
+            $_SESSION["last_name"] = $row["last_name"]; 
+
+            header("Location:../index.php");
+        } else {
+            echo "Login khong thanh cong";
+        }
+
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,24 +59,24 @@
         crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="../css/base.css" />
-    <link rel="stylesheet" href="../css/header.css" />
-    <link rel="stylesheet" href="../css/footer.css" />
-    <link rel="stylesheet" href="../css/login.css" />
+    <link rel="stylesheet" href="../user/css/base.css" />
+    <link rel="stylesheet" href="../user/css/header.css" />
+    <link rel="stylesheet" href="../user/css/footer.css" />
+    <link rel="stylesheet" href="../user/css/login.css" />
 </head>
 <body>
 
 </body>
 
 <!-- Header -->
-		<?php include 'common/header.html'?>
+		<?php include '../user/layout/common/header.html'?>
 
     <main class="main-content container">
-        <div class="bg-wrapper"><img src="../img/login-bg.png"></div>
+        <div class="bg-wrapper"><img src="../user/img/login-bg.png"></div>
 
         <div class="form-wrapper">
             <h1>Đăng nhập</h1>
-            <form id='loginForm' method='POST' action='perform-login.php'>
+            <form id='loginForm' method='POST'>
                 <div class="form-row">
                     <label class="label">Tài khoản</label>
                     <div class="input">
@@ -64,7 +97,7 @@
                 </div>
           
                 <div class="form-row btns-group">
-                    <button class="btn btn-submit"type="submit">ĐĂNG NHẬP</button>
+                    <button class="btn btn-submit"type="submit" name="submit">ĐĂNG NHẬP</button>
                     <button class="btn"type="button"><a href="register.php">ĐĂNG KÝ</a></button>
                 </div>
             </form>
@@ -72,5 +105,5 @@
     </main>
 
     <!-- Footer -->
-		<?php include 'common/footer.html'?>
+		<?php include '../user/layout/common/footer.html'?>
 </html>

@@ -1,5 +1,7 @@
 <?php
     include '../connectSQL.php';
+    include '../requireLogin.php';
+
     $sql = "SELECT * FROM orders";
     $result = mysqli_query($conn, $sql);
 ?>

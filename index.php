@@ -46,7 +46,7 @@
 						<li><a href="">Liên hệ</a></li>
 						<li><a href="">Giới thiệu</a></li>
 						<li><a href="user/layout/register.php">Đăng ký</a></li>
-						<li><a href="user/layout/login.php">Đăng nhập</a></li>
+						<li><a href="common/login.php">Đăng nhập</a></li>
 					</ul>
 				</div>
 			</div>
