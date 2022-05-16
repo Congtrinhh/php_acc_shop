@@ -1,3 +1,8 @@
+<?php include 'user/layout/connectSQL.php'; ?>
+<!-- apple -->
+<!-- hot (sp noi bat) -->
+<!-- sp moi -->
+<!-- ban chay -->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -204,50 +209,40 @@
 				/></a>
 			</section>
 
-			<!-- main product display (PHẦN DANH SÁCH SẢN PHẨM) -->
+			<!-- main product display (APPLE) -->
 			<section class="main-product-container mt-4">
 				<div class="sub-header mb-3">Apple</div>
 				<div class="products row">
-					<div class="item col">
-						<a href="user/layout/product-detail.php" class="wrapper">
-							<div class="img-wrapper">
-								<img
-									src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/04/22/image-removebg-preview.png"
-									alt='Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam'
-								/>
+					<?php
+						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc FROM products p join categories c on p.category_id=c.id WHERE c.name='apple' LIMIT 10";
+
+						$result = mysqli_query($conn, $sql);
+						while ($row = mysqli_fetch_assoc($result)) {
+							echo "
+							<div class='item col'>
+								<a href='user/layout/product-detail.php' class='wrapper'>
+									<div class='img-wrapper'>
+										<img
+											src='" . $row["thumb"]
+											. "'alt='" . $row["short_desc"] . 
+										"'/>" .
+									"</div>
+									<div class='info'>
+										<div class='name'>" . 
+											 $row["name"]
+										. "</div>
+										<span class='price'>".  $row["price"] ." ₫</span>
+									</div>
+									<div class='note'>
+										<span class='badge badge-primary'>KM</span>
+										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
+									</div>
+								</a>
 							</div>
-							<div class="info">
-								<div class="name">
-									Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam
-								</div>
-								<span class="price">24,790,000 ₫</span>
-							</div>
-							<div class="note">
-								<span class="badge badge-primary">KM</span>
-								<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
-							</div>
-						</a>
-					</div>
-					<div class="item col">
-						<a href="#" class="wrapper">
-							<div class="img-wrapper">
-								<img
-									src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/04/22/image-removebg-preview.png"
-									alt='Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam'
-								/>
-							</div>
-							<div class="info">
-								<div class="name">
-									Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam
-								</div>
-								<span class="price">24,790,000 ₫</span>
-							</div>
-							<div class="note">
-								<span class="badge badge-primary">KM</span>
-								<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
-							</div>
-						</a>
-					</div>
+							";
+						}
+					?>
+					
 					<div class="item col">
 						<a href="#" class="wrapper">
 							<div class="img-wrapper">
@@ -268,6 +263,43 @@
 							</div>
 						</a>
 					</div>
+				</div>
+			</section>
+
+			<!-- main product display (HOT) -->
+			<section class="main-product-container mt-4">
+				<div class="sub-header mb-3">Sản phẩm nổi bật</div>
+				<div class="products row">
+					<?php
+						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc FROM products p WHERE hot=true LIMIT 10";
+
+						$result = mysqli_query($conn, $sql);
+						while ($row = mysqli_fetch_assoc($result)) {
+							echo "
+							<div class='item col'>
+								<a href='user/layout/product-detail.php' class='wrapper'>
+									<div class='img-wrapper'>
+										<img
+											src='" . $row["thumb"]
+											. "'alt='" . $row["short_desc"] . 
+										"'/>" .
+									"</div>
+									<div class='info'>
+										<div class='name'>" . 
+											 $row["name"]
+										. "</div>
+										<span class='price'>".  $row["price"] ." ₫</span>
+									</div>
+									<div class='note'>
+										<span class='badge badge-primary'>KM</span>
+										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
+									</div>
+								</a>
+							</div>
+							";
+						}
+					?>
+					
 					<div class="item col">
 						<a href="#" class="wrapper">
 							<div class="img-wrapper">
@@ -288,6 +320,43 @@
 							</div>
 						</a>
 					</div>
+				</div>
+			</section>
+
+			<!-- main product display (BAN CHAY) -->
+			<section class="main-product-container mt-4">
+				<div class="sub-header mb-3">Sản phẩm bán chạy</div>
+				<div class="products row">
+					<?php
+						$sql = "SELECT name, price, thumb, short_desc FROM products ORDER BY quantity_sold DESC LIMIT 10";
+
+						$result = mysqli_query($conn, $sql);
+						while ($row = mysqli_fetch_assoc($result)) {
+							echo "
+							<div class='item col'>
+								<a href='user/layout/product-detail.php' class='wrapper'>
+									<div class='img-wrapper'>
+										<img
+											src='" . $row["thumb"]
+											. "'alt='" . $row["short_desc"] . 
+										"'/>" .
+									"</div>
+									<div class='info'>
+										<div class='name'>" . 
+											 $row["name"]
+										. "</div>
+										<span class='price'>".  $row["price"] ." ₫</span>
+									</div>
+									<div class='note'>
+										<span class='badge badge-primary'>KM</span>
+										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
+									</div>
+								</a>
+							</div>
+							";
+						}
+					?>
+					
 					<div class="item col">
 						<a href="#" class="wrapper">
 							<div class="img-wrapper">
