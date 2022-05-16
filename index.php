@@ -1,4 +1,4 @@
-<?php include 'user/layout/connectSQL.php'; ?>
+<?php include 'common/connectSQL.php'; ?>
 <!-- apple -->
 <!-- hot (sp noi bat) -->
 <!-- sp moi -->

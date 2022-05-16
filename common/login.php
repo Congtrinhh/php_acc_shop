@@ -23,7 +23,11 @@
             $_SESSION["first_name"] = $row["first_name"];
             $_SESSION["last_name"] = $row["last_name"]; 
 
-            header("Location:../index.php");
+            if (strcasecmp($row["role"], "admin")==0 || strcasecmp($row["role"], "manager")==0) {
+                header("Location:../admin/layout/dashboard.php");
+            } else {
+                header("Location:../index.php");
+            }
         } else {
             echo "Login khong thanh cong";
         }
@@ -68,7 +72,7 @@
 
 </body>
 
-<!-- Header -->
+        <!-- Header -->
 		<?php include '../user/layout/common/header.html'?>
 
     <main class="main-content container">
