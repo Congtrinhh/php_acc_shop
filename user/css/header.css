@@ -13,6 +13,14 @@
 .header .top li {
 }
 
+.header .top li.on {
+	display: block;
+}
+
+.header .top li.off {
+	display: none;
+}
+
 .header .top li a {
 	display: block;
 	color: var(--white-color);

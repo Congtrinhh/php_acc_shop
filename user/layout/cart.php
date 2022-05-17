@@ -35,7 +35,7 @@
 	</head>
 	<body>
 		<!-- Header -->
-		<?php include 'common/header.html'?>
+		<?php include 'common/header.php'?>
 
 		<!-- Gio hang -->
 		<div class="cart container">
@@ -161,6 +161,6 @@
 		</div>
 
 		<!-- Footer -->
-		<?php include 'common/footer.html'?>
+		<?php include 'common/footer.php'?>
 	</body>
 </html>

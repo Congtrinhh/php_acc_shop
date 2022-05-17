@@ -1,6 +1,15 @@
 <?php
-    include '../connectSQL.php';
-    include '../requireLogin.php';
+    //include '../../../common/authorization.php';
+    
+    define('HOST', 'localhost');
+    define('USERNAME', 'root');
+    define('PASSWORD', '');
+    define('DATABASE', 'acc_smartphone');
+
+    $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+    if (mysqli_connect_error()) {
+        die('Error connecting to db: '. mysqli_connect_error());
+    }
 
     $sql = "SELECT * FROM orders";
     $result = mysqli_query($conn, $sql);
@@ -17,8 +26,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="./../../css/Dasboard.css">
     <link rel="stylesheet" href="./../../css/Addfood.css">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <body>
     <?php  include '../common/header.php'?>

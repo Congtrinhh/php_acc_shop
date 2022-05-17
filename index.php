@@ -1,4 +1,12 @@
-<?php include 'common/connectSQL.php'; ?>
+<?php 
+	session_start();
+	include 'common/connectSQL.php';
+
+	if (isset($_POST["logout"])) {
+		session_destroy();
+		header("Location:./");
+	}
+ ?>
 <!-- apple -->
 <!-- hot (sp noi bat) -->
 <!-- sp moi -->
@@ -45,8 +53,15 @@
 					<ul>
 						<li><a href="">Liên hệ</a></li>
 						<li><a href="">Giới thiệu</a></li>
-						<li><a href="user/layout/register.php">Đăng ký</a></li>
-						<li><a href="common/login.php">Đăng nhập</a></li>
+						<li class="<?php echo !isset($_SESSION["ID"]) ? 'on' : 'off' ?>"><a href="user/layout/register.php">Đăng ký</a></li>
+						<li class="<?php echo !isset($_SESSION["ID"]) ? 'on' : 'off' ?>"><a href="common/login.php">Đăng nhập</a></li>
+
+						<li class="<?php echo isset($_SESSION["ID"]) ? 'on' : 'off' ?>" ><?php echo $_SESSION["user_name"]; ?></li>
+						<li class="<?php echo isset($_SESSION["ID"]) ? 'on' : 'off' ?>">
+							<form method="POST" id="logoutForm">
+								<input type="submit" name="logout" value="Đăng xuất">
+							</form>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -521,6 +536,6 @@
 			</section>
 		</main>
 
-		<?php include 'user/layout/common/footer.html'?>
+		<?php include 'user/layout/common/footer.php'?>
 	</body>
 </html>

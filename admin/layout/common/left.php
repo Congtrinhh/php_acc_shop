@@ -1,89 +1,61 @@
-<div class="left">
-            <ul>
-                <li><a href="">Dasboard</a></li>
-                <li class="page">Category<span id='icon'>
-                            <i class="fas fa-chevron-right"></i>
-                            </span>
-                    <ul class="sub_pages">
-                        <li><a href="./../AddCategory.php">Create</a></li>
-                        <li><a href="./../ListCategory.php">List Categories</a></li>
-                    </ul>
-                </li>
-                <li class="page">Product<span id='icon'>
-                            <i class="fas fa-chevron-right"></i>
-                            </span>
-                <ul class="sub_pages">
-                    <li><a href="./">Create</a></li>
-                    <li><a href="./">List Products</a></li>
-                </ul>
-                </li>
-                <li class="page">User<span id='icon'>
-                            <i class="fas fa-chevron-right"></i>
-                            </span>
-                <ul class="sub_pages">
-                    <li><a href="./">Create</a></li>
-                    <li><a href="./">List Users</a></li>
-                </ul>
-                </li>
-                <li class="page">Color<span id='icon'>
-                            <i class="fas fa-chevron-right"></i>
-                            </span>
-                <ul class="sub_pages">
-                    <li><a href="./">Create</a></li>
-                    <li><a href="./">List Colors</a></li>
-                </ul>
-                </li>
-                <li class="page">Order
-                    <span id='icon'>
-                        <i class="fas fa-chevron-right"></i>
-                    </span>
-                    <ul class="sub_pages">
-                        <li><a href="./">Create</a></li>
-                        <li><a href="./">List Orders</a></li>
-                    </ul>
-                </li>
-                <li class="page">Order_product<span id='icon'>
-                            <i class="fas fa-chevron-right"></i>
-                            </span>
-                <ul class="sub_pages">
-                    <li><a href="./">Create</a></li>
-                    <li><a href="./">List Order_products</a></li>
-                </ul>
-                </li>
-                <li><a href="">Kho</a></li>
-                <li class= "page">
-                         Pages<span id='icon'>
-                            <i class="fas fa-chevron-right"></i>
-                    </span>
-                    <ul class="sub_pages">
-                        <li class="authen">
-                            <div class="authens">
-                            Authentication
-                            <span id='icon1'>
-                                <i class="fas fa-chevron-right"></i>
-                            </span>
-                            </div>
-                            <ul class="sub_authen">
-                                <li><a href="./login.html">Login</a></li>
-                                <li><a href="./logout.html">Log out</a></li>
-                                <li><a href="./forgetpassword.html">Forgot password</a></li>
-                            </ul>
-                        </li>
-                        <li class="error">
-                            <div class="errors">
-                                Error
-                                <span id='icon2'>
-                                    <i class="fas fa-chevron-right"></i>
-                                </span>
-                                </div>
-                            <ul class="sub_error">
-                                <li><a href="./error401page.html">401 Pages</a></li>
-                                <li><a href="./error404pages.html">404 Pages</a></li>
-                                <li><a href="./error500pages.html">500 Pages</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+<?php 
+    session_start();
+	$role = "";
+	if (isset($_SESSION["role"])) {
+		$role = $_SESSION["role"];
+	}
 
-            </ul>
-        </div>
+	$isAdmin = false;
+	$isManager = false;
+    if (strcasecmp($role, "admin")==0) {
+		$isAdmin = true;
+    } else if (  strcasecmp($role, "manager")==0 ) {
+        $isManager = true;
+    }    
+?>
+<style>
+	ul li.page.off {
+		display: none;
+	}
+</style>
+<div class="left">
+	<ul>
+		<li><a href="">Dasboard</a></li>
+		<li class="page">
+			<a class="d-block" data-bs-toggle="collapse" href="#bigLink1" role="button" aria-expanded="false" aria-controls="bigLink1">Quản lý danh mục (category) <i class="fas fa-chevron-right"></i></a>
+			<ul class="collapse sub_pages" id="bigLink1">
+				<li><a href="./../AddCategory.php">Tạo</a></li>
+				<li><a href="./../ListCategory.php">Danh sách danh mục</a></li>
+			</ul>
+		</li>
+		<li class="page">
+			<a class="d-block" data-bs-toggle="collapse" href="#bigLink2" role="button" aria-expanded="false" aria-controls="bigLink2">Quản lý sản phẩm (product) <i class="fas fa-chevron-right"></i></a>
+			<ul class="collapse sub_pages" id="bigLink2">
+				<li><a href="./../AddCategory.php">Tạo</a></li>
+				<li><a href="./../ListCategory.php">Danh sách sản phẩm</a></li>
+			</ul>
+		</li>
+		<li class="page <?php echo $isAdmin ? 'on' : 'off' ?>">
+			<a class="d-block" data-bs-toggle="collapse" href="#bigLink3" role="button" aria-expanded="false" aria-controls="bigLink3">Quản lý người dùng (user) <i class="fas fa-chevron-right"></i></a>
+			<ul class="collapse sub_pages" id="bigLink3">
+				<li><a href="./../AddCategory.php">Tạo</a></li>
+				<li><a href="./../ListCategory.php">Danh sách user</a></li>
+			</ul>
+		</li>
+		<li class="page">
+			<a class="d-block" data-bs-toggle="collapse" href="#bigLink4" role="button" aria-expanded="false" aria-controls="bigLink4">Quản lý đơn hàng (order) <i class="fas fa-chevron-right"></i></a>
+			<ul class="collapse sub_pages" id="bigLink4">
+				<li><a href="/acc-app/admin/layout/Manage_Order/ListOrder.php">Danh sách đơn hàng</a></li>
+			</ul>
+		</li>
+		<li class="page">
+			<a class="d-block" data-bs-toggle="collapse" href="#bigLink5" role="button" aria-expanded="false" aria-controls="bigLink5">Quản lý kho <i class="fas fa-chevron-right"></i></a>
+			<ul class="collapse sub_pages" id="bigLink5">
+				<li><a href="./../AddCategory.php">Tạo</a></li>
+				<li><a href="./../ListCategory.php">Danh sách Kho</a></li>
+			</ul>
+		</li>
+		
+		<li class="page"><a href="../common/logout.php?logout=true">Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
+	</ul>
+</div>

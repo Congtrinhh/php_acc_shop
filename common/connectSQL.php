@@ -1,15 +1,11 @@
 <?php
-    $username = "root";
-    $password = "";
-    $host = "localhost";
-    $database = "acc_smartphone";
-    
-    // Create connection
-    $conn = mysqli_connect($host, $username, $password, $database);
-    
-    // Check connection
-    
-    if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    define('HOST', 'localhost');
+    define('USERNAME', 'root');
+    define('PASSWORD', '');
+    define('DATABASE', 'acc_smartphone');
+
+    $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
+    if (mysqli_connect_error()) {
+        die('Error connecting to db: '. mysqli_connect_error());
     }
 ?>

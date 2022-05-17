@@ -88,10 +88,8 @@ main .left .fa-chevron-down{
     display: none;
 }
 main .left .sub_pages{
-    display: none;
     margin: 0;
     padding: 5px;
-    
 }
 main .left .sub_pages li:hover{
     background-color: orange;

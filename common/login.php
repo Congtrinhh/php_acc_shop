@@ -1,11 +1,11 @@
 <?php
-    include 'connectSQL.php';
-
     session_start();
+    include 'connectSQL.php';
 
     $sql = null;
     $user_name = null;
     $password = null;
+    $errorMessage=null;
 
     if (isset($_POST['submit'])) {
         $user_name = $_POST['user-name'];
@@ -19,6 +19,7 @@
 
         if (is_array($row)>0) {
             $_SESSION["ID"] = $row["id"];
+             $_SESSION["role"] = $row["role"];
             $_SESSION["user_name"] = $row["user_name"];
             $_SESSION["first_name"] = $row["first_name"];
             $_SESSION["last_name"] = $row["last_name"]; 
@@ -29,7 +30,7 @@
                 header("Location:../index.php");
             }
         } else {
-            echo "Login khong thanh cong";
+            $errorMessage = "Tên tài khoản hoặc mật khẩu không chính xác";
         }
 
     }
@@ -70,10 +71,10 @@
 </head>
 <body>
 
-</body>
+
 
         <!-- Header -->
-		<?php include '../user/layout/common/header.html'?>
+		<?php include '../user/layout/common/header.php'?>
 
     <main class="main-content container">
         <div class="bg-wrapper"><img src="../user/img/login-bg.png"></div>
@@ -99,6 +100,8 @@
                         <input type="text" name="" id="">
                     </div>
                 </div>
+
+                <p style="color: red;"><?php if (isset($errorMessage)) {echo $errorMessage;} ?></p>
           
                 <div class="form-row btns-group">
                     <button class="btn btn-submit"type="submit" name="submit">ĐĂNG NHẬP</button>
@@ -109,5 +112,7 @@
     </main>
 
     <!-- Footer -->
-		<?php include '../user/layout/common/footer.html'?>
+		<?php include '../user/layout/common/footer.php'?>
+
+</body>
 </html>
