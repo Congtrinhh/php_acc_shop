@@ -36,7 +36,7 @@
 
     $result = mysqli_query($conn, $sql);
     $row = mysqli_fetch_assoc($result);
-
+    
     if (is_array($row)) {
         if ( strcasecmp($row["role"], "admin")!=0 || strcasecmp($row["role"], "manager")!=0 ) {
             header('Location:' . __DIR__ . '../common/login.php');

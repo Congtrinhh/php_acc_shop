@@ -7,10 +7,6 @@
 		header("Location:./");
 	}
  ?>
-<!-- apple -->
-<!-- hot (sp noi bat) -->
-<!-- sp moi -->
-<!-- ban chay -->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -83,12 +79,14 @@
 			<div class="bottom">
 				<div class="container">
 					<ul>
-						<li><a href="user/layout/product-list.php">Samsung</a></li>
-						<li><a href="">Apple</a></li>
-						<li><a href="">Oppo</a></li>
-						<li><a href="">Xiaomi</a></li>
-						<li><a href="">Realme</a></li>
-						<li><a href=""> Vivo</a></li>
+						<?php
+						$sql = "SELECT * FROM categories";
+
+						$result = mysqli_query($conn, $sql);
+						while ($row = mysqli_fetch_assoc($result)) {
+								echo "<li><a href='../user/layout/product-list.php?category=" . $row["slug"] . "'>" . $row["name"] . "</a></li>";
+							}
+						?>
 					</ul>
 				</div>
 			</div>
@@ -352,7 +350,7 @@
 								<a href='user/layout/product-detail.php' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
-											src='" . $row["thumb"]
+											src='../admin/img/" . $row["thumb"]
 											. "'alt='" . $row["short_desc"] . 
 										"'/>" .
 									"</div>

@@ -1,5 +1,5 @@
 <?php
-    include '../connectSQL.php';
+    include '../../../common/connectSQL.php';
 
     if (isset($_GET['id'])) {
         $id = $_GET['id'];

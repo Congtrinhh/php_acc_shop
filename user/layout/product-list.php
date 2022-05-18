@@ -37,7 +37,7 @@
 </head>
 <body>
  <!-- Header -->
-<?php include 'common/header.html'?>
+<?php include 'common/header.php'?>
 
 <main>
     <div class="link">  
@@ -88,6 +88,49 @@
     <div class="list">
         <div class="container row">
             <h4 style="margin:20px 0;">Iphone</h4>
+
+            <?php
+             $categorySlug = "";
+                $sql = "";
+                if (isset($_GET["keyword"]) && isset($_GET["category"])) {
+                    $keyword = $_GET["keyword"];
+                    $categorySlug = $_GET["category"];
+                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc FROM products p JOIN categories c ON c.id=p.category_id WHERE (p.name='$keyword' OR p.short_desc='$keyword') AND c.slug='$categorySlug'";
+                }
+                if (isset($_GET["category"])) {
+                    $categorySlug = $_GET["category"];
+                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc FROM products p JOIN categories c ON c.id=p.category_id WHERE c.slug='$categorySlug'";
+                } 
+                if (isset($_GET["keyword"])) {
+                    $keyword = $_GET["keyword"];
+                    $sql = "SELECT name, price, thumb, short_desc FROM products WHERE name LIKE '%$keyword%' OR short_desc LIKE '%$keyword%'";
+                }
+                $result = mysqli_query($conn, $sql);
+						while ($row = mysqli_fetch_assoc($result)) {
+							echo "
+							<div class='item col'>
+								<a href='user/layout/product-detail.php' class='wrapper'>
+									<div class='img-wrapper'>
+										<img
+											src='../../admin/img/" . $row["thumb"]
+											. "'alt='" . $row["short_desc"] . 
+										"'/>" .
+									"</div>
+									<div class='info'>
+										<div class='name'>" . 
+											 $row["name"]
+										. "</div>
+										<span class='price'>".  $row["price"] ." ₫</span>
+									</div>
+									<div class='note'>
+										<span class='badge badge-primary'>KM</span>
+										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
+									</div>
+								</a>
+							</div>
+							";
+						}
+					?>
             <div class="item col">
                 <a href="./Detail_Product.html">
                 <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
@@ -165,6 +208,6 @@
 </div>
 </main> 
 <!-- Footer -->
-<?php include 'common/footer.html'?>
+<?php include 'common/footer.php'?>
 </body>
 </html>

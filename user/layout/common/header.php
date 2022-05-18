@@ -4,6 +4,7 @@
 		session_destroy();
 		header("Location:../../index.php");
 	}
+	include '../../common/connectSQL.php';
 ?>
 
 <header class="header">
@@ -42,12 +43,14 @@
 	<div class="bottom">
 		<div class="container">
 			<ul>
-				<li><a href="product-list.php">Samsung</a></li>
-				<li><a href="">Apple</a></li>
-				<li><a href="">Oppo</a></li>
-				<li><a href="">Xiaomi</a></li>
-				<li><a href="">Realme</a></li>
-				<li><a href=""> Vivo</a></li>
+				<?php
+					$sql = "SELECT * FROM categories";
+
+					$result = mysqli_query($conn, $sql);
+					while ($row = mysqli_fetch_assoc($result)) {
+						echo "<li><a href='product-list.php?category=" . $row["slug"] . "'>" . $row["name"] . "</a></li>";
+					}
+				?>
 			</ul>
 		</div>
 	</div>
