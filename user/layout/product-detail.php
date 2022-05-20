@@ -1,3 +1,6 @@
+<?php 
+    include '../../../common/connectSQL.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>

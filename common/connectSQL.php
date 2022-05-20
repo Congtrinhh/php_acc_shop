@@ -1,8 +1,8 @@
 <?php
     define('HOST', 'localhost');
     define('USERNAME', 'root');
-    define('PASSWORD', '');
-    define('DATABASE', 'acc_smartphone');
+    define('PASSWORD', '12345678');
+    define('DATABASE', 'smartphone');
 
     $conn = mysqli_connect(HOST, USERNAME, PASSWORD, DATABASE);
     if (mysqli_connect_error()) {

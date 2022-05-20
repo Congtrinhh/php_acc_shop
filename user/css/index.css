@@ -56,7 +56,7 @@ section.main-product-container .products.row {
 }
 
 section.main-product-container .item {
-	margin: 0 10px 10px 0;
+	/* margin: 0 10px 10px 0; */
 	background: #fff;
 	box-shadow: 0 4px 6px #00000029;
 	border-radius: 8px;

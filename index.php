@@ -84,7 +84,7 @@
 
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
-								echo "<li><a href='../user/layout/product-list.php?category=" . $row["slug"] . "'>" . $row["name"] . "</a></li>";
+								echo "<li><a href='user/layout/product-list.php?category=" . $row["slug"] . "'>" . $row["name"] . "</a></li>";
 							}
 						?>
 					</ul>
@@ -232,11 +232,12 @@
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
 							echo "
-							<div class='item col'>
+							<div class='item col col-sm-3'>
+								<div class='wrapper'>
 								<a href='user/layout/product-detail.php' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
-											src='" . $row["thumb"]
+											src='./admin/img/" . $row["thumb"]
 											. "'alt='" . $row["short_desc"] . 
 										"'/>" .
 									"</div>
@@ -251,6 +252,7 @@
 										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
 									</div>
 								</a>
+								</div>
 							</div>
 							";
 						}
@@ -293,7 +295,7 @@
 								<a href='user/layout/product-detail.php' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
-											src='" . $row["thumb"]
+											src='./admin/img/" . $row["thumb"]
 											. "'alt='" . $row["short_desc"] . 
 										"'/>" .
 									"</div>
@@ -350,7 +352,7 @@
 								<a href='user/layout/product-detail.php' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
-											src='../admin/img/" . $row["thumb"]
+											src='./admin/img/" . $row["thumb"]
 											. "'alt='" . $row["short_desc"] . 
 										"'/>" .
 									"</div>
