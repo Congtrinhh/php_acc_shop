@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,48 +91,92 @@
         <div class="container row">
 
             <?php
+            include '../class/ProductFilter.php';
+            
+            // start of pagination block 1
+            $currentPage = !empty($_GET["page"]) ? $_GET["page"] : 1;
+            $itemPerPage = !empty($_GET["perPage"]) ? $_GET["perPage"] : 8;
+            $offset = ($currentPage-1)*$itemPerPage;
+            $totalRecords = 0;
+            $totalPages = 0;
+
+            $pageUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            parse_str(parse_url($pageUrl)['query'], $params);
+            $keys = array_keys($params);
+            $queryString="?";
+            for ($i=0; $i<count($keys); $i++){
+                if ($keys[$i]=="perPage" || $keys[$i]=="page") {
+                    continue;
+                }
+                $queryString .= $keys[$i] . "=" . $params[$keys[$i]] . "&";
+            }
+            $queryString .= "perPage=" . $itemPerPage;
+            // end of pagination block 1
+
              $categorySlug = "";
-                $sql = "";
+                $sql = "SELECT name, price, thumb, short_desc, slug FROM products LIMIT $itemPerPage OFFSET $offset";
+                $sqlTotalRecordsForPagination = "SELECT * FROM products"; // lấy ra tất cả sản phẩm để tính số trang
+
                 if (isset($_GET["keyword"]) && isset($_GET["category"])) {
                     $keyword = $_GET["keyword"];
                     $categorySlug = $_GET["category"];
-                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p JOIN categories c ON c.id=p.category_id WHERE (p.name='$keyword' OR p.short_desc='$keyword') AND c.slug='$categorySlug'";
+                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug 
+                    FROM products p JOIN categories c ON c.id=p.category_id 
+                    WHERE (p.name LIKE '%$keyword%' OR p.short_desc LIKE '%$keyword%') AND c.slug='$categorySlug' LIMIT $itemPerPage OFFSET $offset";
+
+                    $sqlTotalRecordsForPagination ="SELECT p.name, p.price, p.thumb, p.short_desc, p.slug 
+                    FROM products p JOIN categories c ON c.id=p.category_id 
+                    WHERE (p.name LIKE '%$keyword%' OR p.short_desc LIKE '%$keyword%') AND c.slug='$categorySlug'";
+
                 }
                 if (isset($_GET["category"])) {
                     $categorySlug = $_GET["category"];
-                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p JOIN categories c ON c.id=p.category_id WHERE c.slug='$categorySlug'";
+                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p JOIN categories c ON c.id=p.category_id 
+                    WHERE c.slug='$categorySlug' LIMIT $itemPerPage OFFSET $offset";
+                    $sqlTotalRecordsForPagination = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p JOIN categories c ON c.id=p.category_id WHERE c.slug='$categorySlug'";
                 } 
                 if (isset($_GET["keyword"])) {
                     $keyword = $_GET["keyword"];
-                    $sql = "SELECT name, price, thumb, short_desc, slug FROM products WHERE name LIKE '%$keyword%' OR short_desc LIKE '%$keyword%'";
+                    $sql = "SELECT name, price, thumb, short_desc, slug FROM products 
+                    WHERE name LIKE '%$keyword%' OR short_desc LIKE '%$keyword%' LIMIT $itemPerPage OFFSET $offset";
+                    $sqlTotalRecordsForPagination = "SELECT name, price, thumb, short_desc, slug FROM products WHERE name LIKE '%$keyword%' OR short_desc LIKE '%$keyword%'";
                 }
                 $result = mysqli_query($conn, $sql);
-						while ($row = mysqli_fetch_assoc($result)) {
-							echo "
-							<div class='item col col-sm-3'>
-                                <div class='parent-wrapper'>
-								<a href='user/layout/product-detail.php?slug=" . $row['slug'] . "' class='wrapper'>
-									<div class='img-wrapper'>
-										<img
-											src='../../admin/img/" . $row["thumb"]
-											. "'alt='" . $row["short_desc"] . 
-										"'/>" .
-									"</div>
-									<div class='info'>
-										<div class='name'>" . 
-											 $row["name"]
-										. "</div>
-										<span class='price'>".  $row["price"] ." ₫</span>
-									</div>
-									<div class='note'>
-										<span class='badge badge-primary'>KM</span>
-										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
-									</div>
-								</a>
-                                </div>
-							</div>
-							";
-						}
+
+                // start of pagination block 2
+                $resultTotalRecords = mysqli_query($conn, $sqlTotalRecordsForPagination);
+                $totalRecords = $resultTotalRecords->num_rows;
+                $totalPages = ceil($totalRecords/$itemPerPage);
+                // end of pagination block 2
+
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "
+                    <div class='item col col-sm-3'>
+                        <div class='parent-wrapper'>
+                        <a href='user/layout/product-detail.php?slug=" . $row['slug'] . "' class='wrapper'>
+                            <div class='img-wrapper'>
+                                <img
+                                    src='../../admin/img/" . $row["thumb"]
+                                    . "'alt='" . $row["short_desc"] . 
+                                "'/>" .
+                            "</div>
+                            <div class='info'>
+                                <div class='name'>" . 
+                                        $row["name"]
+                                . "</div>
+                                <span class='price'>".  $row["price"] ." ₫</span>
+                            </div>
+                            <div class='note'>
+                                <span class='badge badge-primary'>KM</span>
+                                <span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
+                            </div>
+                        </a>
+                        </div>
+                    </div>
+                    ";
+                }
+
+                include '../../common/pagination.php';
 					?>
         </div>
         <div class="plus">Xem thêm sản phẩm</div>
