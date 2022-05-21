@@ -96,6 +96,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	flex-wrap: wrap;
 }
 
 .header .bottom .container li {
@@ -104,6 +105,6 @@
 .header .bottom .container a {
 	display: block;
 	color: var(--white-color);
-	padding: 8px 70px;
+	padding: 8px 48px;
 	font-size: 18px;
 }

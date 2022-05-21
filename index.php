@@ -64,10 +64,10 @@
 			<div class="middle">
 				<div class="container">
 					<a href="" class="logo"><img src="" alt="" /><i class="fa-solid fa-square-caret-right"></i>ACC smart phone</a>
-					<div class="search">
-						<input type="text" name="search" placeholder="Hôm nay bạn cần tìm gì?" />
+					<form class="search" method="GET" action="user/layout/product-list.php">
+						<input type="text" name="keyword" placeholder="Hôm nay bạn cần tìm gì?" />
 						<button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-					</div>
+					</form>
 					<div class="header-cart">
 						<a href="user/layout/cart.php">
 							<i class="fa-solid fa-cart-shopping"></i>
@@ -227,14 +227,14 @@
 				<div class="sub-header mb-3">Apple</div>
 				<div class="products row">
 					<?php
-						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc FROM products p join categories c on p.category_id=c.id WHERE c.name='apple' LIMIT 10";
+						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p join categories c on p.category_id=c.id WHERE c.name='apple' LIMIT 10";
 
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
 							echo "
 							<div class='item col col-sm-3'>
-								<div class='wrapper'>
-								<a href='user/layout/product-detail.php' class='wrapper'>
+								<div class='parent-wrapper'>
+								<a href='user/layout/product-detail.php?name=" . $row['slug'] . "' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
 											src='./admin/img/" . $row["thumb"]
@@ -257,27 +257,6 @@
 							";
 						}
 					?>
-					
-					<div class="item col">
-						<a href="#" class="wrapper">
-							<div class="img-wrapper">
-								<img
-									src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/04/22/image-removebg-preview.png"
-									alt='Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam'
-								/>
-							</div>
-							<div class="info">
-								<div class="name">
-									Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam
-								</div>
-								<span class="price">24,790,000 ₫</span>
-							</div>
-							<div class="note">
-								<span class="badge badge-primary">KM</span>
-								<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
-							</div>
-						</a>
-					</div>
 				</div>
 			</section>
 
@@ -286,13 +265,14 @@
 				<div class="sub-header mb-3">Sản phẩm nổi bật</div>
 				<div class="products row">
 					<?php
-						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc FROM products p WHERE hot=true LIMIT 10";
+						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p WHERE hot=true LIMIT 10";
 
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
 							echo "
-							<div class='item col'>
-								<a href='user/layout/product-detail.php' class='wrapper'>
+							<div class='item col col-sm-3'>
+								<div class='parent-wrapper'>
+								<a href='user/layout/product-detail.php?name=" . $row['slug'] . "' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
 											src='./admin/img/" . $row["thumb"]
@@ -310,31 +290,11 @@
 										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
 									</div>
 								</a>
+								</div>
 							</div>
 							";
 						}
 					?>
-					
-					<div class="item col">
-						<a href="#" class="wrapper">
-							<div class="img-wrapper">
-								<img
-									src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/04/22/image-removebg-preview.png"
-									alt='Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam'
-								/>
-							</div>
-							<div class="info">
-								<div class="name">
-									Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam
-								</div>
-								<span class="price">24,790,000 ₫</span>
-							</div>
-							<div class="note">
-								<span class="badge badge-primary">KM</span>
-								<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
-							</div>
-						</a>
-					</div>
 				</div>
 			</section>
 
@@ -343,13 +303,14 @@
 				<div class="sub-header mb-3">Sản phẩm bán chạy</div>
 				<div class="products row">
 					<?php
-						$sql = "SELECT name, price, thumb, short_desc FROM products ORDER BY quantity_sold DESC LIMIT 10";
+						$sql = "SELECT name, price, thumb, short_desc, slug FROM products ORDER BY quantity_sold DESC LIMIT 10";
 
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
 							echo "
-							<div class='item col'>
-								<a href='user/layout/product-detail.php' class='wrapper'>
+							<div class='item col col-sm-3'>
+								<div class='parent-wrapper'>
+								<a href='user/layout/product-detail.php?name=" . $row['slug'] . "' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
 											src='./admin/img/" . $row["thumb"]
@@ -367,31 +328,11 @@
 										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
 									</div>
 								</a>
+								</div>
 							</div>
 							";
 						}
 					?>
-					
-					<div class="item col">
-						<a href="#" class="wrapper">
-							<div class="img-wrapper">
-								<img
-									src="https://cdn.hoanghamobile.com/i/productlist/ts/Uploads/2021/04/22/image-removebg-preview.png"
-									alt='Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam'
-								/>
-							</div>
-							<div class="info">
-								<div class="name">
-									Apple iPad Pro M1 12.9"- (2021) - Wifi - 128GB - Chính hãng Apple Việt Nam
-								</div>
-								<span class="price">24,790,000 ₫</span>
-							</div>
-							<div class="note">
-								<span class="badge badge-primary">KM</span>
-								<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
-							</div>
-						</a>
-					</div>
 				</div>
 			</section>
 

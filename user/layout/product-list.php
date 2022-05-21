@@ -86,8 +86,8 @@
         
     </div>
     <div class="list">
+        <h4 class="container my-5">Iphone</h4>
         <div class="container row">
-            <h4 style="margin:20px 0;">Iphone</h4>
 
             <?php
              $categorySlug = "";
@@ -103,13 +103,14 @@
                 } 
                 if (isset($_GET["keyword"])) {
                     $keyword = $_GET["keyword"];
-                    $sql = "SELECT name, price, thumb, short_desc FROM products WHERE name LIKE '%$keyword%' OR short_desc LIKE '%$keyword%'";
+                    $sql = "SELECT name, price, thumb, short_desc, slug FROM products WHERE name LIKE '%$keyword%' OR short_desc LIKE '%$keyword%'";
                 }
                 $result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
 							echo "
-							<div class='item col'>
-								<a href='user/layout/product-detail.php' class='wrapper'>
+							<div class='item col col-sm-3'>
+                                <div class='parent-wrapper'>
+								<a href='user/layout/product-detail.php?name=" . $row['slug'] . "' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
 											src='../../admin/img/" . $row["thumb"]
@@ -127,65 +128,11 @@
 										<span>Sẵn hàng, giảm thêm tới 1.500.000đ ...</span>
 									</div>
 								</a>
+                                </div>
 							</div>
 							";
 						}
 					?>
-            <div class="item col">
-                <a href="./Detail_Product.html">
-                <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                <div><image src="../img/iphone13.png"></div>
-                <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                    tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                </p></div>
-                </a>
-            </div>
-            <div class="item col">
-                <a href="./Detail_Product.html">
-                <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                <div><image src="../img/iphone13.png"></div>
-                <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                    tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                </p></div>
-                </a>
-            </div>
-            <div class="item col">
-                <a href="./Detail_Product.html">
-                <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                <div><image src="../img/iphone13.png"></div>
-                <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                    tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                </p></div>
-                </a>
-            </div>
-            <div class="item col">
-                <a href="./Detail_Product.html">
-                <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                <div><image src="../img/iphone13.png"></div>
-                <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                    tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                </p></div>
-                </a>
-            </div>
-            <div class="item col">
-                <a href="./Detail_Product.html">
-                <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                <div><image src="../img/iphone13.png"></div>
-                <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                    tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                </p></div>
-                </a>
-            </div>
         </div>
         <div class="plus">Xem thêm sản phẩm</div>
     </div>

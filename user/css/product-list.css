@@ -118,12 +118,21 @@
 	padding: 0;
 }
 .list .container .item {
+	padding: 0;
+}
+.list .container .item .parent-wrapper {
 	background-color: var(--white-color);
-	margin-left: 10px;
 	border-radius: 10px;
 	font-size: 12px;
 	box-shadow: 0 4px 6px #ccc;
+	margin: 0 20px 20px 0;
+	padding: 10px;
 }
+
+.list .container .item:nth-child(4n) .parent-wrapper {
+	margin-right: 0;
+}
+
 .list .container .item i {
 	font-size: 30px;
 }

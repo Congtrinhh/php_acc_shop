@@ -36,7 +36,7 @@
 	</head>
 	<body>
 		<!-- Header -->
-		<?php include 'common/header.html'?>
+		<?php include 'common/header.php'?>
 
         <main>
             <div class="link">  
@@ -332,7 +332,7 @@
             </div>
         </main>
 		<!-- Footer -->
-		<?php include 'common/footer.html'?>
+		<?php include 'common/footer.php'?>
 	</body>
     <script>
         function dropdown(){

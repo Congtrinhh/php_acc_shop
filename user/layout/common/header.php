@@ -28,10 +28,10 @@
 	<div class="middle">
 		<div class="container">
 			<a href="../../index.php" class="logo"><img src="" alt="" /><i class="fa-solid fa-square-caret-right"></i>ACC smart phone</a>
-			<div class="search">
-				<input type="text" name="search" placeholder="Hôm nay bạn cần tìm gì?" />
+			<form class="search" method="GET" action="../layout/product-list.php">
+				<input type="text" name="keyword" placeholder="Hôm nay bạn cần tìm gì?" />
 				<button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-			</div>
+			</form>
 			<div class="header-cart">
 				<a href="cart.php">
 					<i class="fa-solid fa-cart-shopping"></i>
