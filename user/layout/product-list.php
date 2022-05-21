@@ -95,11 +95,11 @@
                 if (isset($_GET["keyword"]) && isset($_GET["category"])) {
                     $keyword = $_GET["keyword"];
                     $categorySlug = $_GET["category"];
-                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc FROM products p JOIN categories c ON c.id=p.category_id WHERE (p.name='$keyword' OR p.short_desc='$keyword') AND c.slug='$categorySlug'";
+                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p JOIN categories c ON c.id=p.category_id WHERE (p.name='$keyword' OR p.short_desc='$keyword') AND c.slug='$categorySlug'";
                 }
                 if (isset($_GET["category"])) {
                     $categorySlug = $_GET["category"];
-                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc FROM products p JOIN categories c ON c.id=p.category_id WHERE c.slug='$categorySlug'";
+                    $sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p JOIN categories c ON c.id=p.category_id WHERE c.slug='$categorySlug'";
                 } 
                 if (isset($_GET["keyword"])) {
                     $keyword = $_GET["keyword"];
@@ -110,7 +110,7 @@
 							echo "
 							<div class='item col col-sm-3'>
                                 <div class='parent-wrapper'>
-								<a href='user/layout/product-detail.php?name=" . $row['slug'] . "' class='wrapper'>
+								<a href='user/layout/product-detail.php?slug=" . $row['slug'] . "' class='wrapper'>
 									<div class='img-wrapper'>
 										<img
 											src='../../admin/img/" . $row["thumb"]

@@ -1,3 +1,26 @@
+<?php
+	include '../../common/connectSQL.php';
+
+	$message = null;
+	if (isset($_POST['submit'])) {
+		$username = $_POST['UserName'];
+		$password = $_POST['FullName'];
+		$email = $_POST['Email'];
+		$phone = $_POST['PhoneNumber'];
+		$role = 'user';
+		$address = $_POST['Address'];		
+		$created_date = $date = gmdate("Y-m-d H:i:s", time()+7*60*60);
+
+		$sql = "INSERT INTO users(user_name, password, email, phone, role, address, created_date) VALUES('$username', '$password', '$email', '$phone', '$role', '$address', '$created_date')";
+		$result = mysqli_query($conn, $sql);
+		
+		if ($result==1) {
+			$message = "Bạn đã tạo tài khoản thành công";
+		} else {
+			$message = "Đã có lỗi xảy ra, vui lòng thử lại sau";
+		}
+	}
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -34,7 +57,7 @@
 	</head>
 	<body>
 		<!-- Header -->
-		<?php include 'common/header.html'?>
+		<?php include 'common/header.php'?>
 
 		<!-- form dang ki -->
 		<div class="container">
@@ -54,7 +77,6 @@
 		
 					<div class="hh-form" id="registerForm">
 						<form method="post">
-		
 							<div class="form-controls">
 								<label>Tài khoản:</label>
 								<div class="controls">
@@ -62,14 +84,12 @@
 								</div>
 							</div>
 		
-		
 							<div class="form-controls">
 								<label>Họ tên:</label>
 								<div class="controls">
-									<input name="Title" id="Title" type="text" placeholder="Họ tên *" data-required="1">
+									<input name="FullName" id="Title" type="text" placeholder="Họ tên *" data-required="1">
 								</div>
 							</div>
-		
 		
 							<div class="form-controls">
 								<label>Mật khẩu:</label>
@@ -78,15 +98,12 @@
 								</div>
 							</div>
 		
-		
 							<div class="form-controls">
 								<label>Nhập lại mật khẩu:</label>
 								<div class="controls">
 									<input name="SecurityStamp" id="SecurityStamp" type="text" placeholder="Nhập lại mật khẩu *" data-required="1">
 								</div>
 							</div>
-		
-		
 		
 							<div class="form-controls">
 								<label>Email:</label>
@@ -95,7 +112,7 @@
 								</div>
 							</div>
 		
-							<div class="form-controls">
+							<div class="form-controls d-none">
 								<label>Giới tính:</label>
 								<div class="controls">
 									<label class="radio-ctn">
@@ -112,14 +129,12 @@
 								</div>
 							</div>
 		
-		
-							<div class="form-controls">
+							<div class="form-controls d-none">
 								<label>Ngày tháng năm sinh:</label>
 								<div class="controls">
 									<input name="UserBirthDate" id="UserBirthDate" type="text" placeholder="Ngày tháng năm sinh" value="">
 								</div>
 							</div>
-		
 		
 							<div class="form-controls">
 								<label>Điện thoại:</label>
@@ -135,7 +150,7 @@
 								</div>
 							</div>
 		
-							<div class="form-controls">
+							<div class="form-controls d-none">
 								<label>Tỉnh/Thành phố:</label>
 								<div class="controls">
 									<select name="SystemCityID" id="SystemCityID" placeholder="Tỉnh/Thành phố">
@@ -207,7 +222,7 @@
 								</div>
 							</div>
 		
-							<div class="form-controls">
+							<div class="form-controls d-none">
 								<label>Quận/Huyện:</label>
 								<div class="controls">
 									<select name="SystemDistrictID" id="SystemDistrictID" data-required="1" placeholder="Quận/Huyện *">
@@ -216,11 +231,16 @@
 								</div>
 							</div>
 		
-		
+							<?php 
+								if (!empty($message)) {
+									echo "<p class='alert alert-info'>" . $message . "</p>";
+									$message=null;
+								}
+							 ?>
 		
 							<div class="form-controls mt-4">
 								<div class="controls submit-controls">
-									<button type="submit">ĐĂNG KÝ TÀI KHOẢN</button>
+									<button type="submit" name="submit">ĐĂNG KÝ TÀI KHOẢN</button>
 								</div>
 							</div>
 		
@@ -233,7 +253,7 @@
 		</div>
 
 		<!-- Footer -->
-		<?php include 'common/footer.html'?>
+		<?php include 'common/footer.php'?>
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 	</body>
