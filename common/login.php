@@ -19,7 +19,7 @@
 
         if (is_array($row)>0) {
             $_SESSION["ID"] = $row["id"];
-             $_SESSION["role"] = $row["role"];
+            $_SESSION["role"] = $row["role"];
             $_SESSION["user_name"] = $row["user_name"];
             $_SESSION["first_name"] = $row["first_name"];
             $_SESSION["last_name"] = $row["last_name"]; 
@@ -71,11 +71,6 @@
 </head>
 <body>
 
-
-
-        <!-- Header -->
-		<?php include '../user/layout/common/header.php'?>
-
     <main class="main-content container">
         <div class="bg-wrapper"><img src="../user/img/login-bg.png"></div>
 
@@ -110,9 +105,6 @@
             </form>
         </div>
     </main>
-
-    <!-- Footer -->
-		<?php include '../user/layout/common/footer.php'?>
 
 </body>
 </html>

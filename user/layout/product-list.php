@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     
      <!-- <META http-equiv="refresh" content="0;URL=./fragment/header/header.html">  -->
     
@@ -91,8 +90,6 @@
         <div class="container row">
 
             <?php
-            include '../class/ProductFilter.php';
-            
             // start of pagination block 1
             $currentPage = !empty($_GET["page"]) ? $_GET["page"] : 1;
             $itemPerPage = !empty($_GET["perPage"]) ? $_GET["perPage"] : 8;

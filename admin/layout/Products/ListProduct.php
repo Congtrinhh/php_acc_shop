@@ -7,6 +7,8 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="../../../user/css/base.css">
     <link rel="stylesheet" href="./../../css/dashboard.css">
     <link rel="stylesheet" href="./../../css/Addfood.css">
 </head>
@@ -33,9 +35,32 @@
                     <tbody>
                         <?php
                             include '../../../common/connectSQL.php';
-                            $sql = "select * from products inner join categories on products.category_id = categories.id order by products.id desc ";
+                            // start of pagination block 1
+                            $currentPage = !empty($_GET["page"]) ? $_GET["page"] : 1;
+                            $itemPerPage = !empty($_GET["perPage"]) ? $_GET["perPage"] : 10;
+                            $offset = ($currentPage-1)*$itemPerPage;
+                            $totalRecords = 0;
+                            $totalPages = 0;
+
+                            $pageUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                            parse_str(parse_url($pageUrl)['query'], $params);
+                            $keys = array_keys($params);
+                            $queryString="?";
+                            for ($i=0; $i<count($keys); $i++){
+                                if ($keys[$i]=="perPage" || $keys[$i]=="page") {
+                                    continue;
+                                }
+                                $queryString .= $keys[$i] . "=" . $params[$keys[$i]] . "&";
+                            }
+                            $queryString .= "perPage=" . $itemPerPage;
+                            // end of pagination block 1
+
+                            
+                            $sql = "select * from products inner join categories on products.category_id = categories.id order by products.id desc LIMIT $itemPerPage OFFSET $offset";
                             $query = $conn->query($sql);
                             $i = 0;
+
+                           
                             while($row = $query->fetch_row()) {
                                 $i++;
                                 echo "
@@ -65,6 +90,17 @@
                         ?>
                     </tbody>
                 </table>
+
+                <?php 
+                 // start of pagination block 2
+                 $sqlTotalRecordsForPagination = "select * from products inner join categories on products.category_id = categories.id order by products.id desc";
+                 $resultTotalRecords = mysqli_query($conn, $sqlTotalRecordsForPagination);
+                 $totalRecords = $resultTotalRecords->num_rows;
+                 $totalPages = ceil($totalRecords/$itemPerPage);
+                 // end of pagination block 2
+                ?>
+
+                <?php include '../../../common/pagination.php' ; ?>
             </div>
         </div>
     </main>

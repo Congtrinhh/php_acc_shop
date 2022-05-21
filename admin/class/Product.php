@@ -1,7 +1,7 @@
 <?php
     class Product {
         public $name; 
-        public $category_id; 
+        public $category_id;
         public $price; 
         public $short_desc;
         public $long_desc;

@@ -1,3 +1,4 @@
+<?php include '../../../common/authorization.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

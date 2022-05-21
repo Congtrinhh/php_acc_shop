@@ -44,7 +44,7 @@ if (!function_exists('create_slug')) {
 }
 ?>
 <?php
-        include "../connectSQL.php";
+        include '../../../common/connectSQL.php';
 
         if(isset($_GET['id'])){
             $id = $_GET['id'];
@@ -70,9 +70,12 @@ if (!function_exists('create_slug')) {
         $slug = create_slug($productName);
         //var_dump($hinhanh);
         if(isset($_POST['save'])){
-            $sql = "UPDATE `products` SET `name`='$productName',`price`='$productPrice', `short_desc`='$short_desc',`long_desc`='$long_desc',`thumb`='$name_img',`active`='$productActive',`slug`='$slug',`hot`='$productHot',`quantity`='$productQuantity', `category_id` = '$categoryId' WHERE id = $id";
-            //move_uploaded_file($hinhanh_tmp,'uploads/' .$hinhanh);
-            move_uploaded_file($source_img, $path_img);
+            if (!empty($_FILES['productImage']['name'])) {
+                $sql = "UPDATE `products` SET `name`='$productName',`price`='$productPrice', `short_desc`='$short_desc',`long_desc`='$long_desc',`thumb`='$name_img',`active`='$productActive',`slug`='$slug',`hot`='$productHot',`quantity`='$productQuantity', `category_id` = '$categoryId' WHERE id = $id";
+                move_uploaded_file($source_img, $path_img);
+            } else {
+                $sql = "UPDATE `products` SET `name`='$productName',`price`='$productPrice', `short_desc`='$short_desc',`long_desc`='$long_desc', `active`='$productActive',`slug`='$slug',`hot`='$productHot',`quantity`='$productQuantity', `category_id` = '$categoryId' WHERE id = $id";
+            }
             $qr = mysqli_query($conn, $sql);
         }
         $sql_category = "select * from categories";
@@ -86,13 +89,10 @@ if (!function_exists('create_slug')) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Category</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">  
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../../css/AddCategories.css">
-    <link rel="stylesheet" href="../../css/Dasboard.css">
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./../../css/dashboard.css">
+    <link rel="stylesheet" href="./../../css/Addfood.css">
     <script>
     function XacNhanXoa(){
        return confirm("Bạn có chắc chắc muốn xóa danh mục nay hay không ?");

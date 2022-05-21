@@ -4,14 +4,15 @@
 	$message = null;
 	if (isset($_POST['submit'])) {
 		$username = $_POST['UserName'];
-		$password = $_POST['FullName'];
+		$password = $_POST['PasswordHash'];
+		$fullName = $_POST['FullName'];
 		$email = $_POST['Email'];
 		$phone = $_POST['PhoneNumber'];
 		$role = 'user';
 		$address = $_POST['Address'];		
 		$created_date = $date = gmdate("Y-m-d H:i:s", time()+7*60*60);
 
-		$sql = "INSERT INTO users(user_name, password, email, phone, role, address, created_date) VALUES('$username', '$password', '$email', '$phone', '$role', '$address', '$created_date')";
+		$sql = "INSERT INTO users(user_name, full_name, password, email, phone, role, address, created_date) VALUES('$username', '$fullName', '$password', '$email', '$phone', '$role', '$address', '$created_date')";
 		$result = mysqli_query($conn, $sql);
 		
 		if ($result==1) {
@@ -87,7 +88,7 @@
 							<div class="form-controls">
 								<label>Họ tên:</label>
 								<div class="controls">
-									<input name="FullName" id="Title" type="text" placeholder="Họ tên *" data-required="1">
+									<input name="FullName" id="FullName" type="text" placeholder="Họ tên *" data-required="1">
 								</div>
 							</div>
 		

@@ -1,4 +1,4 @@
-<?php
+<?php include '../../../common/authorization.php';
 if (!function_exists('create_slug')) {
     function create_slug($string)
     {
@@ -81,7 +81,7 @@ if (!function_exists('create_slug')) {
     <link rel="stylesheet" href="./../../css/Addfood.css">
 </head>
 <body>
-    <?php  include '../common/header.php'?>
+    <?php include '../common/header.php'?>>
     <main>
     <?php  include '../common/left.php '?>
         <div class="right">
