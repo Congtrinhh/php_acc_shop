@@ -1,3 +1,4 @@
+<?php include '../../../common/authorization.php'; ?>
 <?php
 if (!function_exists('create_slug')) {
     function create_slug($string)

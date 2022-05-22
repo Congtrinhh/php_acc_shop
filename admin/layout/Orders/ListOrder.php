@@ -1,6 +1,5 @@
+<?php include '../../../common/authorization.php'; ?>
 <?php
-    //include '../../../common/authorization.php';
-    
     include '../../../common/connectSQL.php';
 
     $sql = "SELECT * FROM orders";

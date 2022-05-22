@@ -1,3 +1,4 @@
+<?php include '../../../common/authorization.php'; ?>
 <?php
         include '../../../common/connectSQL.php';
         $productId = $_POST['productName'];
