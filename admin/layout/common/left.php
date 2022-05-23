@@ -46,7 +46,9 @@
 		<li class="page">
 			<a class="d-block" data-bs-toggle="collapse" href="#bigLink4" role="button" aria-expanded="false" aria-controls="bigLink4">Quản lý đơn hàng (order) <i class="fas fa-chevron-right"></i></a>
 			<ul class="collapse sub_pages" id="bigLink4">
-				<li><a href="../Orders/ListOrder.php">Danh sách đơn hàng</a></li>
+				 <li><a href="../Orders/ListOrder_CTN.php">Danh sách chờ tiếp nhận</a></li>
+				<li><a href="../Orders/ListOrder_CTT.php">Danh sách chờ nhận hàng</a></li>
+				<li><a href="../Orders/ListOrder_LSDH.php">Lịch sử đơn hàng</a></li>
 			</ul>
 		</li>
 		<li class="page">

@@ -150,7 +150,7 @@
                     echo "
                     <div class='item col col-sm-3'>
                         <div class='parent-wrapper'>
-                        <a href='user/layout/product-detail.php?slug=" . $row['slug'] . "' class='wrapper'>
+                        <a href='product-detail.php?slug=" . $row['slug'] . "' class='wrapper'>
                             <div class='img-wrapper'>
                                 <img
                                     src='../../admin/img/" . $row["thumb"]

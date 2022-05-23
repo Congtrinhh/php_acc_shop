@@ -197,11 +197,12 @@
 	max-width: 1050px;
 	margin: auto;
 }
-.comment .container .feedback .ma {
+.comment .container .feedback .main-comment-container {
 	border-left: solid 1px black;
+	margin-bottom: 30px;
 }
-.comment .container .feedback .ma .bl button {
-	display: none;
+.comment .container .feedback .main-comment-container .bl button {
+	display: block;
 	margin: 20px 0;
 
 	padding: 10px 0;
@@ -211,10 +212,7 @@
 	color: white;
 	width: 250px;
 }
-.comment .container .feedback .ma:hover .bl button {
-	display: block;
-}
-.comment .container .feedback .ma form button {
+.comment .container .feedback .main-comment-container form button {
 	/* display: none;*/
 	margin: 20px 0;
 
@@ -225,7 +223,7 @@
 	color: white;
 	width: 250px;
 }
-.comment .container .feedback .ma form {
+.comment .container .feedback .main-comment-container form {
 	display: none;
 }
 .comment .container .feedback .logo i {

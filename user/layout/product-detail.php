@@ -1,5 +1,17 @@
 <?php 
-    include '../../../common/connectSQL.php';
+    ob_start();
+    session_start();
+    include "./../../common/connectSQL.php";
+    if(isset($_GET['slug'])){
+        $slug = $_GET['slug'];
+    }
+    if (!function_exists('currency_format')) {
+		function currency_format($number, $suffix = 'đ') {
+			if (!empty($number)) {
+				return number_format($number, 0, ',', '.') . "{$suffix}";
+			}
+		}
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,25 +57,41 @@
                 <p>></p>
                 <div class="sub"><a href="./List_Product.html">Iphone</a></div>
                 <p>></p>
-                <div class="sub ac"><a href="./Detail_Product.html">Apple Iphone 13 Pro Max - Chính hãng VN/A</a></div>
+                <div class="sub ac"><a href="./Detail_Product.html"><?php echo $row_d['name']?></a></div>
                 </div>
             </div>
+            <?php 
+                    $sql = "SELECT * FROM products WHERE slug = '$slug'";
+
+                    $qr = mysqli_query($conn,$sql);
+                    $row_d = mysqli_fetch_assoc($qr);
+
+                    $productId = $row_d["id"];
+                    $categoryId = $row_d["category_id"];
+                ?>
+                
             <div class="infor">
                 <div class="container row">
-                    <h4>Điện thoại di động Apple iPhone 13 Pro Max - Chính hãng VN/A</h4>
+                    <h4><?php echo $row_d['name'] ?></h4>
                 <div class="image_list col-4">
                     <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                          <div class="carousel-item active">
-                            <img src="../img/iphone13.png" class="d-block w-100" alt="...">
-                            
-                          </div>
-                          <div class="carousel-item">
-                            <img src="../img/iphone 13 white.png" class="d-block w-100" alt="...">
-                          </div>
-                          <div class="carousel-item">
-                            <img src="../img/iphone 13 black.webp" class="d-block w-100" alt="...">
-                          </div>
+
+                        <?php
+                            $sql_image = "SELECT * FROM smartphone.product_images where product_id=$productId";
+
+                            $result_image = mysqli_query($conn, $sql_image);
+                            $i=0;
+                            while($row=mysqli_fetch_assoc($result_image)) {
+                                $i++;
+                        ?>
+
+                            <div class="carousel-item <?= $i==1? "active" : "" ?>">
+                                <img src="../../admin/img/<?=$row["image_url"] ?>" class="d-block w-100" alt="...">
+                            </div>
+
+                          <?php } ?>
+                          
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
                           <span style="background-color: black;border-radius: 50%;" class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -84,17 +112,18 @@
                          
                       </div>
                 </div>
+                
                 <div class="price col-5">
                     <div class="price-item">
-                        <span style="color:red; font-weight:bold;font-size:25px">28,950,000 đ</span><span>| Giá bao gồm 10% VAT</span>
+                        <span style="color:red; font-weight:bold;font-size:25px"><?php echo $row_d['price'] ?></span><span>| Giá bao gồm 10% VAT</span>
                     </div>
                     <div class="move">
                         <i class="fa-solid fa-truck-fast"></i><span>   MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC</span>
                     </div>
-                    <div class="choice">
+                     <div class="choice">
                         <br>
                         <h6>Lựa chọn phiên bản</h6>
-                        <form>
+                         <form>
                             <div class="box ac">
                                 <input type="radio" value="128GB" id="1" />
                                 <span>  128GB</span>
@@ -105,8 +134,8 @@
                                 <span>  128GB</span>
                                 <p style="color:rgb(250, 28, 224);font-weight:bold;">28,950,000 đ</p>
                             </div>
-                        </form>
-                        <h6 class="mt-4">Lựa chọn màu và xem địa chỉ còn hàng</h6>
+                        </form> -->
+                        < <h6 class="mt-4">Lựa chọn màu và xem địa chỉ còn hàng</h6>
                         <form >
                             <div class="box ac">
                                 <input type="radio" value="Gold" id="1" />
@@ -118,16 +147,38 @@
                                 <span>  Silver</span>
                                 <p style="color:rgb(250, 28, 224);font-weight:bold;">28,950,000 đ</p>
                             </div>
-                        </form>
-                    </div>
+                        </form> 
+                    </div> 
                     <div class="discount">
 
                     </div>
                     <div  class="buy row">
-                        <a href="" class="col-10">
-                        <div class="buy-now "><h6>MUA NGAY</h6><span>Giao hàng tận nhà (COD) hoặc Nhận tại của hàng</span></div>
-                        </a>
-                        <a href="" class="col-2"><div class="cart"><i class="fa-solid fa-cart-plus"></i></div></a>
+                    
+                    <form method="post" action="./cart.php" >
+                        <input type="hidden" name="name" value="<?php echo $row_d['name']?>">
+                        <input type="hidden" name="id" value="<?php echo $row_d['id']?>">
+                        <input type="hidden" name="price" value="<?php echo $row_d['price']?>">
+                        <input type="hidden" name="image" value="<?php echo $row_d['thumb']?>">
+                        <input type="hidden" name="quantity" value="1">
+                        <?php 
+                            if(isset($_SESSION['ID']))
+                            { 
+                                echo '<a href="./cart.php"><input type="submit" name="save" style ="border-style: none; padding: 20px;" value=" MUA NGAY Giao hàng tận nhà (COD) hoặc Nhận tại của hàng" class="buy-now ">
+                                </a>" ';
+                            }else{
+                                echo '<a href="./cart_empty.php" > <input type="button" name="save" style ="border-style: none; padding: 20px;" value=" MUA NGAY Giao hàng tận nhà (COD) hoặc Nhận tại của hàng" class="buy-now "></a>';
+                            }
+                            
+                         ?>
+                        
+                        <!-- <input type="submit" name="save" style ="border-style: none; padding: 20px;" value=" MUA NGAY Giao hàng tận nhà (COD) hoặc Nhận tại của hàng" class="buy-now ">
+                        </a> -->
+                    </form>
+                        
+                        <!-- <div class="buy-now "><h6>MUA NGAY</h6><span>Giao hàng tận nhà (COD) hoặc Nhận tại của hàng</span></div> -->
+                        
+                        
+                        <!-- <button type="button" onclick="AddToCard()" class="col-2" style="border-style:none;"><a href="./product-detail.php"><div class="cart"><i class="fa-solid fa-cart-plus"></i></div></a></button> -->
                     </div>
                 </div>
                 <div class="address col-3">
@@ -204,72 +255,30 @@
                     <div class="row mx-auto my-auto justify-content-center">
                         <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
                             <div class="carousel-inner" role="listbox">
-                                <div class="carousel-item active">
-                                    <div class="item col-md">
-                                        <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                                        <div><image src="../img/iphone13.png"></div>
-                                        <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                                        <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                                        <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                                            tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                                        </p></div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="item col-md">
-                                        <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                                        <div><image src="../img/iphone13.png"></div>
-                                        <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                                        <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                                        <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                                            tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                                        </p></div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="item col-md">
-                                        <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                                        <div><image src="../img/iphone13.png"></div>
-                                        <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                                        <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                                        <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                                            tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                                        </p></div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="item col-md">
-                                        <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                                        <div><image src="../img/iphone13.png"></div>
-                                        <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                                        <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                                        <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                                            tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                                        </p></div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="item col-md">
-                                        <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                                        <div><image src="../img/iphone13.png"></div>
-                                        <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                                        <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                                        <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                                            tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                                        </p></div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div class="item col-md">
-                                        <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
-                                        <div><image src="../img/iphone13.png"></div>
-                                        <div class="text"><p><strong>Apple Iphone 13 - Chính hãng<br> VN/A</strong></p></div>
-                                        <div class="text"><Strong style="color:red" >21,250,000 đ</Strong></div>
-                                        <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
-                                            tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
-                                        </p></div>
-                                    </div>
-                                </div>
+
+                                <?php
+                                    $sql_related_products = "select * from products where category_id = $categoryId limit 8";
+                                    $result_related_products = mysqli_query($conn, $sql_related_products);
+
+                                    $i=0;
+                                    while ($row = mysqli_fetch_assoc($result_related_products)) {
+                                        $i++;
+                                    ?>
+                                        <div class="carousel-item <?= $i==1?'active':'' ?>">
+                                            <div class="item col-md">
+                                                <div style="display:flex"><div><i class="fa-brands fa-apple"></i></div><div>Authorities <br> Reseller</div></div>
+                                                <div><img src="../../admin/img/<?=$row["thumb"] ?>" class="d-block w-100" alt="..."></div>
+                                                <div class="text"><p><strong><?=$row["name"]?><br> VN/A</strong></p></div>
+                                                <div class="text"><Strong style="color:red" ><?=$row["price"]?> đ</Strong></div>
+                                                <div class="text"><strong style="background-color:orange;color:white;">KM</strong><p>Sẵn sàng giảm thêm
+                                                    tới  1.500.000 đ... <strong style="color:orange"> VÀ % KM KHÁC</strong>
+                                                </p></div>
+                                            </div>
+                                        </div>
+
+                                <?php
+                                    }
+                                ?>
                             </div>
                             <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -283,50 +292,96 @@
                 </div>
                   </div>
             </div>
+
+            <?php
+                // session_start();
+                // include "./../../common/connectSQL.php";
+                if(isset($_GET['save'])){
+                    $sub_comment = $_GET['sub_comment'];
+                    $parent_comment_id = $_GET['parent-comment-id'];
+                    $date = gmdate("Y-m-d H:i:s", time()+7*60*60);
+                    $sql_subi = "INSERT INTO `sub_comments`( `comment_id`, `comment`, `created_date`, `user_id`) VALUES ( $parent_comment_id,'$sub_comment','$date',".$_SESSION['ID'].")";
+                    $qr_subi = mysqli_query($conn,$sql_subi);
+                    header('Location:./product-detail.php?slug='.$slug);
+                    
+                }
+
+                if(isset($_GET['submit'])){
+                    $comment = $_GET['comment'];
+                    // $userId = $_SESSION["ID"];
+                    // $productId = $_GET['product-id'];
+                    $date = gmdate("Y-m-d H:i:s", time()+7*60*60);
+                    $sql = "INSERT INTO `comments`(`user_id`, `product_id`, `comment`, `created_date`) VALUES (".$_SESSION['ID'].",".$row_d['id'].",'$comment','$date')";
+                    $qr = mysqli_query($conn,$sql);
+                    var_dump($qr);
+                    header('Location:./product-detail.php?slug='.$slug);
+                    }
+                ?>
+
             <div class="comment">
                 <div class="container">
-                    <h5>Bình luận về Apple iPhone 13 Pro Max - Chính hãng VN/A</h5>
-                    <form>
-                        <input class="box" type="text" placeholder="Họ tên" size="35px" style="height:35px;padding-left: 10px;">
-                        <input class="box" type="text" placeholder="Điện thoại" size="35px" style="height:35px;padding-left: 10px;margin-left: 20px;">
-                        <input class="box" type="Email" placeholder="Email" size="35px" style="height:35px;padding-left: 10px;margin-left: 20px;">
-                        <br>
-                        <textarea placeholder="Nội dung tối thiểu 15 ký tự *" cols="120" rows="4"></textarea >
+                    <h5>Bình luận về <?php echo $row_d['name'] ?></h5>
+                    <!-- <a href="./../../common/connectSQL.php"; -->
+                    <?php 
+                        
+                        //echo "<pre>" .print_r($conn, true) . "</pre>";
+                        $sql_up = "SELECT * FROM comments join users on comments.user_id = users.id WHERE comments.product_id = " . $row_d['id'];
+                        $qr_up = mysqli_query($conn,$sql_up);
+                    ?>
+                    <?php if(isset($_SESSION['ID'])){ ?>
+                    <form method="GET" action="">
+                        <input type="hidden" name="slug" value="<?php echo $slug?>">
+                        <textarea placeholder="Nội dung tối thiểu 15 ký tự *" cols="120" name ="comment" rows="4"></textarea >
                         <br> 
                        
-                        <button type="button" ><i class="fa-solid fa-paper-plane"></i> GỬI BÌNH LUẬN</button>
+                        <button type="submit" name="submit"><i class="fa-solid fa-paper-plane"></i> GỬI BÌNH LUẬN</button>
                     </form>
+                    <?php } ?>
                     <div class="feedback row">
+                        
+                        <?php while($rows = $qr_up -> fetch_row()){ ?>
                         <div class="acc col-1"><img src="../img/accc.png" width="50px" height="50px"></div>
-                        <div class="col-11">
-                            <b>Trần Ngọc Anh</b>
-                            <p style="font-size: 10px;color:gray">3 tuần trước (12/02/2022)</p>
+                        <div class="col-11 main-comment-container">
+                            <b><?php echo $rows[9] .' '. $rows[8] ?></b>
+                            <p style="font-size: 10px;color:gray">3 tuần trước (<?php echo $rows[4] ?>)</p>
                             <br>
-                            <p>Hàng khá ngon , MLEM MLEM !!!</p>
+                            <p><?php echo $rows[3] ?></p>
                             <br>
+                            <?php 
+                                $sql_sub = "SELECT  * FROM sub_comments join users on sub_comments.user_id = users.id WHERE comment_id = $rows[0]";
+                                $qr_sub = mysqli_query($conn,$sql_sub);   
+
+                                
+                            ?>
                             <div class="ma row">
+                            <?php while($row_sub = mysqli_fetch_row($qr_sub)) {?>
                                 <div class="logo col-1"><i class="fa-solid fa-square-caret-right"></i></div>
                                 <div class="col-11">
-                                    <b>ACC Company Smartphone</b>
-                                    <p style="font-size: 10px;color:gray">3 tuần trước (12/02/2022)</p>
+                                    <b><?php echo $row_sub[9] .' '. $row_sub[8] ?></b>
+                                    <p style="font-size: 10px;color:gray">3 tuần trước (<?php echo $row_sub[4] ?>)</p>
                                     <br>
-                                    <p>Cảm ơn quý khách !!!!</p>
-                                    <div class="bl">
-                                        <button type="button" onclick="dropdown()">Nhập bình luận của bạn       <i class="fa-solid fa-paper-plane"></i></button>
-                                    </div>
-                                    <form class="na">
-                                        <input class="box" type="text" placeholder="Họ tên" size="25px" style="height:35px;padding-left: 10px;">
-                                        <input class="box" type="text" placeholder="Điện thoại" size="25px" style="height:35px;padding-left: 10px;margin-left: 20px;">
-                                        <input class="box" type="Email" placeholder="Email" size="25px" style="height:35px;padding-left: 10px;margin-left: 20px;">
-                                        <br>
-                                        <textarea placeholder="Nội dung tối thiểu 15 ký tự *" cols="100" rows="4"></textarea >
-                                        <br> 
-                                       
-                                        <button type="button" ><i class="fa-solid fa-paper-plane"></i> GỬI BÌNH LUẬN</button>
-                                    </form>
+                                    <p><?php echo $row_sub[3]?></p>                                  
                                 </div>
-                            </div>
+                            <?php } ?>
                         </div>
+                        <div class="bl">
+                        <?php if(isset($_SESSION['ID'])){ ?>
+                                <button type="button" class="btn-show-comment">Nhập bình luận của bạn       <i class="fa-solid fa-paper-plane"></i></button>
+                            <?php } ?>    
+                            </div>
+                                
+                                <form class="na"  method="GET" action="">
+                                    <input type="hidden" name="slug" value="<?php echo $slug?>">
+                                    <br>
+                                    <textarea placeholder="Nội dung tối thiểu 15 ký tự *" cols="100" rows="4" name="sub_comment" ></textarea >
+                                    <br> 
+
+                                    <input type="hidden" name="parent-comment-id" value="<?php echo $rows[0] ?>" />
+                                   
+                                    <button type ="submit" name="save"><i class="fa-solid fa-paper-plane"></i> GỬI BÌNH LUẬN</button>
+                                </form>
+                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -335,10 +390,26 @@
 		<?php include 'common/footer.php'?>
 	</body>
     <script>
-        function dropdown(){
-            document.querySelector(".na").style.display="block";
-            document.querySelector(".bl").style.display="none";
+        function AddToCart(){
+            <?php 
+            $_SESSION['quantity'] = $_SESSION['quantity'] + 1;
+            var_dump( $_SESSION['quantity']);
+            ?>
+
         }
+
+        function handleShowComment(){
+            const btns = document.querySelectorAll('.btn-show-comment');
+            btns.forEach( el => { 
+                el.onclick = function(e) {
+                    const formEl =this.parentElement.nextElementSibling; 
+                    formEl.style.display = 'block';
+                }
+            } );
+        }
+
+        handleShowComment();
+
         let items = document.querySelectorAll('.product-similar .carousel .carousel-item')
 
         items.forEach((el) => {

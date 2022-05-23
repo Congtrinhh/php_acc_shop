@@ -194,3 +194,88 @@ footer {
 	margin-left: 18%;
 	font-size: 10px;
 }
+
+/* ngoc anh code */
+main .right {
+	width: 100%;
+	margin-left: 20px;
+}
+main .right .top {
+	width: 100%;
+	margin-left: 20px;
+	height: 400px;
+}
+main .right .bottom {
+	width: 100%;
+	margin-left: 20px;
+	height: 400px;
+	margin-top: 40px;
+}
+main .right .product {
+	background-color: rgb(214, 211, 211);
+	border-radius: 10px;
+	margin-right: 20px;
+	/* height: 400px; */
+}
+main .right .order {
+	background-color: rgb(214, 211, 211);
+	border-radius: 10px;
+	margin-right: 20px;
+	/* height: 400px; */
+}
+main .right .importation {
+	background-color: rgb(214, 211, 211);
+	border-radius: 10px;
+}
+main .right .user {
+	background-color: rgb(214, 211, 211);
+	border-radius: 10px;
+	margin-right: 20px;
+}
+main .right .comment {
+	background-color: rgb(214, 211, 211);
+	border-radius: 10px;
+}
+/* main .right .bottom{
+    display: flex;
+} */
+hr {
+	width: 100%;
+}
+footer {
+	display: flex;
+	justify-content: space-between;
+	width: 80%;
+	margin-left: 18%;
+	font-size: 10px;
+}
+.green {
+	background-color: green;
+	color: white;
+	padding: 10px;
+	border-style: none;
+	margin-right: 8px;
+}
+.green a {
+	color: white;
+}
+.blue a {
+	color: white;
+}
+.red a {
+	color: white;
+}
+.blue {
+	background-color: blue;
+	color: white;
+	padding: 10px;
+	border-style: none;
+	margin-right: 8px;
+}
+.red {
+	background-color: red;
+	color: white;
+	padding: 10px;
+	border-style: none;
+	margin-right: 8px;
+}

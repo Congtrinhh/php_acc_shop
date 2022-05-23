@@ -16,12 +16,10 @@
 				<li class="<?php echo !isset($_SESSION["ID"]) ? 'on' : 'off' ?>"><a href="register.php">Đăng ký</a></li>
 				<li class="<?php echo !isset($_SESSION["ID"]) ? 'on' : 'off' ?>"><a href="../../common/login.php">Đăng nhập</a></li>
 
-				<li class="<?php echo isset($_SESSION["ID"]) ? 'on' : 'off' ?>" ><?php echo $_SESSION["user_name"]; ?></li>
-				<li class="<?php echo isset($_SESSION["ID"]) ? 'on' : 'off' ?>">
-					<form method="POST" id="logoutForm">
-						<input type="submit" name="logout" value="Đăng xuất">
-					</form>
+				<li class="<?php echo isset($_SESSION["ID"]) ? 'on' : 'off' ?>" >
+				<a href="/acc-app/user/layout/account.php" style="color: white;margin-top: 7px;">Tài Khoản <i class="fa-solid fa-user"></i></a>
 				</li>
+			
 			</ul>
 		</div>
 	</div>
@@ -32,11 +30,26 @@
 				<input type="text" name="keyword" placeholder="Hôm nay bạn cần tìm gì?" />
 				<button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
 			</form>
+			<?php 
+				$tongsl = 0;
+				for($i = 0; $i < sizeof($_SESSION['giohang']);$i++){
+					$tongsl += $_SESSION['giohang'][$i][3];
+				}
+				//var_dump($_SESSION['giohang'][$i][3]);
+			?>
 			<div class="header-cart">
-				<a href="cart.php">
-					<i class="fa-solid fa-cart-shopping"></i>
-					<span class="amount badge badge-primary">1</span>
-				</a>
+			<?php 
+				if(isset($_SESSION['ID']))
+				{ 
+					echo '<a href="./cart.php" ><i class="fa-solid fa-cart-shopping"></i>
+					<span class="amount badge badge-primary"> '. $tongsl.'</span>
+				</a>';
+				}else{
+					echo '<a href="./cart_empty.php" ><i class="fa-solid fa-cart-shopping"></i>
+					<span class="amount badge badge-primary">0</span></a>';
+				}
+				
+			?>
 			</div>
 		</div>
 	</div>

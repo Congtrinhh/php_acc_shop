@@ -1,5 +1,5 @@
-<?php include '../../../common/authorization.php'; ?>
 <?php
+    include '../../../common/authorization.php';
     include '../../../common/connectSQL.php';
     
     if (isset($_GET['id'])) {
@@ -29,8 +29,6 @@
         <div class="right">
             <h1>Danh sách đơn hàng</h1>
             <div class="order-info">
-                <p class="name">Tên: <span> <?php echo $order_info["ship_name"] ?> </span></p>
-
                 <p class="address">Địa chỉ: <span> <?php echo $order_info["address"] ?> </span></p>
 
                 <p class="phone">Số điện thoại: <span> <?php echo $order_info["phone"] ?> </span></p>
@@ -80,6 +78,8 @@
         </div>
         
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 </html>

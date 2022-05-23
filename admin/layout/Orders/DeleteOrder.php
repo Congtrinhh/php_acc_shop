@@ -1,5 +1,5 @@
-<?php include '../../../common/authorization.php'; ?>
 <?php
+    include '../../../common/authorization.php';
     include '../../../common/connectSQL.php';
 
     if (isset($_GET['id'])) {

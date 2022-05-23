@@ -7,7 +7,6 @@
        include "../../../common/authorization.php";
    }
     
-    
     if(isset($_POST['upload'])){
         // $sql = "SELECT * FROM vendors ";
         // $qr = $mysqli_query($conn,$sql);
@@ -16,7 +15,7 @@
         $employee_name = $_POST['employee_name'];
         $sql = "INSERT INTO `vendors`( `name`, `address`, `employee_name`) VALUES ('$vendor_name','$address','$employee_name')";
         $qr = mysqli_query($conn,$sql);
-        header("location: ListVendors.php");
+        header("location: ListVendor.php");
         var_dump($qr);
     }
 ?>
