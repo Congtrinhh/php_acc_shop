@@ -1,3 +1,4 @@
+<?php include '../../../common/authorization.php'; ?>
 <?php 
     session_start();
 	$role = "";
@@ -51,10 +52,35 @@
 		<li class="page">
 			<a class="d-block" data-bs-toggle="collapse" href="#bigLink5" role="button" aria-expanded="false" aria-controls="bigLink5">Quản lý kho <i class="fas fa-chevron-right"></i></a>
 			<ul class="collapse sub_pages" id="bigLink5">
-				<li><a href="./Importations/AddImportation.php">Tạo</a></li>
-				<li><a href="./Importations/ListImportation.php">Danh sách Kho</a></li>
+				<li><a href="../Importations/AddImportation.php">Tạo</a></li>
+				<li><a href="../Importations/ListImportation.php">Danh sách Kho</a></li>
 			</ul>
 		</li>
+
+		<li class="page">
+			<a class="d-block" data-bs-toggle="collapse" href="#bigLink6" role="button" aria-expanded="false" aria-controls="bigLink6">Quản lý Comment <i class="fas fa-chevron-right"></i></a>
+			<ul class="collapse sub_pages" id="bigLink6">
+				<li><a href="../Comments/ListComment.php">Danh sách Comment</a></li>
+			</ul>
+		</li>
+
+		<li class="page">
+			<a class="d-block" data-bs-toggle="collapse" href="#bigLink7" role="button" aria-expanded="false" aria-controls="bigLink7">Quản lý Phiếu nhập (Importation) <i class="fas fa-chevron-right"></i></a>
+			<ul class="collapse sub_pages" id="bigLink7">
+				<li><a href="../Importations/AddImportation.php">Tạo Phiếu nhập</a></li>
+				<li><a href="../Importations/ListImportation.php">Danh sách Phiếu nhập</a></li>
+			</ul>
+		</li>
+
+		<li class="page">
+			<a class="d-block" data-bs-toggle="collapse" href="#bigLink8" role="button" aria-expanded="false" aria-controls="bigLink8">Quản lý Nhà cung cấp (Vendor) <i class="fas fa-chevron-right"></i></a>
+			<ul class="collapse sub_pages" id="bigLink8">
+				<li><a href="../Vendors/AddVendor.php">Tạo Nhà cung cấp</a></li>
+				<li><a href="../Vendors/ListVendor.php">Danh sách Nhà cung cấp</a></li>
+			</ul>
+		</li>
+
+		
 		
 		<li class="page"><a href="../common/logout.php?logout=true">Đăng xuất <i class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
 	</ul>
