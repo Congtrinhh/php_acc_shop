@@ -6,6 +6,14 @@
 		session_destroy();
 		header("Location:./");
 	}
+
+	if (!function_exists('currency_format')) {
+		function currency_format($number, $suffix = 'đ') {
+			if (!empty($number)) {
+				return number_format($number, 0, ',', '.') . "{$suffix}";
+			}
+		}
+	}
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -259,7 +267,7 @@
 										<div class='name'>" . 
 											 $row["name"]
 										. "</div>
-										<span class='price'>".  $row["price"] ." ₫</span>
+										<span class='price'>".  currency_format($row["price"]) ."</span>
 									</div>
 									<div class='note'>
 										<span class='badge badge-primary'>KM</span>
@@ -297,7 +305,7 @@
 										<div class='name'>" . 
 											 $row["name"]
 										. "</div>
-										<span class='price'>".  $row["price"] ." ₫</span>
+										<span class='price'>".  currency_format($row["price"]) ."</span>
 									</div>
 									<div class='note'>
 										<span class='badge badge-primary'>KM</span>
@@ -335,7 +343,7 @@
 										<div class='name'>" . 
 											 $row["name"]
 										. "</div>
-										<span class='price'>".  $row["price"] ." ₫</span>
+										<span class='price'>".  currency_format($row["price"]) ."</span>
 									</div>
 									<div class='note'>
 										<span class='badge badge-primary'>KM</span>

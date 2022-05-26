@@ -1,4 +1,13 @@
-<?php session_start();?>
+<?php 
+session_start();
+
+if (!function_exists('currency_format')) {
+		function currency_format($number, $suffix = 'đ') {
+			if (!empty($number)) {
+				return number_format($number, 0, ',', '.') . "{$suffix}";
+			}
+		}
+	}?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,10 +94,20 @@
         </div>
         
     </div>
-    <div class="list">
-        <h4 class="container my-5">Iphone</h4>
-        <div class="container row">
-
+    <div class="list container">
+        <h4 class="sub-header">
+            <?php
+                if (isset($_GET['category'])) {
+                    $categoryName = $_GET['category'];
+                    echo $categoryName;
+                } else if (isset($_GET['keyword'])) {
+                    echo "Kết quả tìm kiếm cho '" . $_GET['keyword'] . "':";
+                } else {
+                    echo "Danh sách kết quả";
+                }
+            ?>
+        </h4>
+        <div class="row">
             <?php
             // start of pagination block 1
             $currentPage = !empty($_GET["page"]) ? $_GET["page"] : 1;
@@ -161,7 +180,7 @@
                                 <div class='name'>" . 
                                         $row["name"]
                                 . "</div>
-                                <span class='price'>".  $row["price"] ." ₫</span>
+                                <span class='price'>".  currency_format($row["price"]) ." ₫</span>
                             </div>
                             <div class='note'>
                                 <span class='badge badge-primary'>KM</span>
