@@ -249,7 +249,7 @@
 				<div class="sub-header mb-3">Apple</div>
 				<div class="products row">
 					<?php
-						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p join categories c on p.category_id=c.id WHERE c.name='apple' LIMIT 10";
+						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p join categories c on p.category_id=c.id WHERE c.name='apple' LIMIT 8";
 
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
@@ -287,7 +287,7 @@
 				<div class="sub-header mb-3">Sản phẩm nổi bật</div>
 				<div class="products row">
 					<?php
-						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p WHERE hot=true LIMIT 10";
+						$sql = "SELECT p.name, p.price, p.thumb, p.short_desc, p.slug FROM products p WHERE hot=true LIMIT 8";
 
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {
@@ -325,7 +325,7 @@
 				<div class="sub-header mb-3">Sản phẩm bán chạy</div>
 				<div class="products row">
 					<?php
-						$sql = "SELECT name, price, thumb, short_desc, slug FROM products ORDER BY quantity_sold DESC LIMIT 10";
+						$sql = "SELECT name, price, thumb, short_desc, slug FROM products ORDER BY quantity_sold DESC LIMIT 8";
 
 						$result = mysqli_query($conn, $sql);
 						while ($row = mysqli_fetch_assoc($result)) {

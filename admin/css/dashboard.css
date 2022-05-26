@@ -21,6 +21,7 @@ html {
 }
 .header .right {
 	display: flex;
+	align-items: center;
 	margin-right: 40px;
 }
 .header .right .myForm {

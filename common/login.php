@@ -103,7 +103,7 @@
           
                 <div class="form-row btns-group">
                     <button class="btn btn-submit"type="submit" name="submit">ĐĂNG NHẬP</button>
-                    <button class="btn"type="button"><a href="register.php">ĐĂNG KÝ</a></button>
+                    <button class="btn"type="button"><a href="../user/layout/register.php">ĐĂNG KÝ</a></button>
                 </div>
             </form>
         </div>
