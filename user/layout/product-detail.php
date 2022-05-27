@@ -115,12 +115,12 @@
                 
                 <div class="price col-5">
                     <div class="price-item">
-                        <span style="color:red; font-weight:bold;font-size:25px"><?php echo $row_d['price'] ?></span><span>| Giá bao gồm 10% VAT</span>
+                        <span style="color:red; font-weight:bold;font-size:25px"><?php echo currency_format($row_d['price']) ?></span><span>&nbsp;&nbsp;|&nbsp;&nbsp;Giá bao gồm 10% VAT</span>
                     </div>
                     <div class="move">
-                        <i class="fa-solid fa-truck-fast"></i><span>   MIỄN PHÍ VẬN CHUYỂN TOÀN QUỐC</span>
+                        <i class="fa-solid fa-truck-fast"></i><span>&nbsp;&nbsp;&nbsp;VẬN CHUYỂN TOÀN QUỐC</span>
                     </div>
-                     <div class="choice">
+                     <div class="choice d-none">
                         <br>
                         <h6>Lựa chọn phiên bản</h6>
                          <form>
