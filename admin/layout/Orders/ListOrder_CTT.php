@@ -24,7 +24,7 @@
     <?php  include '../common/left.php'?>
         <div class="right">
             
-            <h1>Danh sách đơn hàng</h1>
+            <h1>Danh sách đơn hàng chờ thanh toán</h1>
             <table class="table">
             <thead>
                 <th>STT</th>

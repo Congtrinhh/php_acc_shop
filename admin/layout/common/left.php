@@ -51,13 +51,6 @@
 				<li><a href="../Orders/ListOrder_LSDH.php">Lịch sử đơn hàng</a></li>
 			</ul>
 		</li>
-		<li class="page">
-			<a class="d-block" data-bs-toggle="collapse" href="#bigLink5" role="button" aria-expanded="false" aria-controls="bigLink5">Quản lý kho <i class="fas fa-chevron-right"></i></a>
-			<ul class="collapse sub_pages" id="bigLink5">
-				<li><a href="../Importations/AddImportation.php">Tạo</a></li>
-				<li><a href="../Importations/ListImportation.php">Danh sách Kho</a></li>
-			</ul>
-		</li>
 
 		<li class="page">
 			<a class="d-block" data-bs-toggle="collapse" href="#bigLink6" role="button" aria-expanded="false" aria-controls="bigLink6">Quản lý Comment <i class="fas fa-chevron-right"></i></a>

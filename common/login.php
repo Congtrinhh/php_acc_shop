@@ -22,6 +22,7 @@
             $_SESSION["user_name"] = $row["user_name"];
             $_SESSION["first_name"] = $row["first_name"];
             $_SESSION["last_name"] = $row["last_name"];
+            $_SESSION["role"] = $row["role"];
             $_SESSION["email"] = $row["email"];
             $_SESSION["address"] = $row["address"];
             $_SESSION["full_name"] = $row["full_name"];

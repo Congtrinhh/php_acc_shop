@@ -1,4 +1,7 @@
 <?php
+    include "../../../common/authorization.php";
+?>
+<?php
   session_start();
   var_dump($_SESSION['ID']);
   if(isset($_SESSION['ID'])){
